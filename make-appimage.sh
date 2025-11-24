@@ -13,7 +13,12 @@ export DESKTOP=/usr/share/applications/org.prismlauncher.PrismLauncher.desktop
 export DEPLOY_OPENGL=1
 
 # Deploy dependencies
-quick-sharun /usr/bin/prismlauncher /usr/share/PrismLauncher
+quick-sharun \
+	/usr/bin/prismlauncher   \
+	/usr/share/PrismLauncher \
+	/usr/bin/java*           \
+	/usr/bin/jar             \
+	/usr/lib/jvm
 
 # Additional changes can be done in between here
 
