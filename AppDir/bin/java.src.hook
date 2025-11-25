@@ -1,0 +1,28 @@
+#!/bin/sh
+
+javadir=${XDG_DATA_HOME:-~/.local/share}/PrismLauncher/java/java-runtime-delta
+
+if [ -d "$javadir" ]; then
+	if [ "$APPIMAGE_ARCH" = 'x86_64' ]; then
+		interpreter=$APPDIR/lib/ld-linux-x86-64.so.2
+	elif [ "$APPIMAGE_ARCH" = 'aarch64' ]; then
+		interpreter=$APPDIR/lib/ld-linux-aarch64.so.1
+	else
+		exit 1
+	fi
+
+	ln -sf "$interpreter" /tmp/ld-linux.so
+	patchelf --set-interpreter /tmp/ld-linux.so "$javadir"/bin/*
+
+	for d in \
+	  "$APPDIR"/lib/*    \
+	  "$APPDIR"/lib/*/*  \
+	  "$APPDIR"/lib/*/*/*; do
+		if [ -d "$d" ]; then
+			LIB_DIRS=${LIB_DIRS:+$LIB_DIRS:}$d
+		fi
+	done
+
+	LD_LIBRARY_PATH=$LIB_DIRS
+	export LD_LIBRARY_PATH
+fi
