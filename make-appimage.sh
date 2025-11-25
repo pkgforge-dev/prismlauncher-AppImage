@@ -12,6 +12,7 @@ export ICON=/usr/share/icons/hicolor/scalable/apps/org.prismlauncher.PrismLaunch
 export DESKTOP=/usr/share/applications/org.prismlauncher.PrismLauncher.desktop
 export DEPLOY_OPENGL=1
 export DEPLOY_PIPEWIRE=1
+export ANYLINUX_LIB=1
 
 # Deploy dependencies
 quick-sharun /usr/bin/prismlauncher /usr/share/PrismLauncher
